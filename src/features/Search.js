@@ -1,10 +1,17 @@
-import React from "react";
-import { View, Text } from "react-native";
+import { React, useState } from "react";
+import { View } from "react-native";
+import { Searchbar } from "react-native-paper";
 
 export const Search = ({ style }) => {
+  const [searchQuery, setSearchQuery] = useState(null);
+  console.log(searchQuery);
   return (
     <View style={style}>
-      <Text>Search</Text>
+      <Searchbar
+        placeholder="Search"
+        onChangeText={setSearchQuery}
+        value={searchQuery}
+      />
     </View>
   );
 };
