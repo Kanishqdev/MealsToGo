@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { SafeAreaView, StatusBar, FlatList } from "react-native";
 import styled from "styled-components/native";
 import { Search } from "../../Search";
 import { RestaurantInfoCard } from "../components/restaurant.info.card.component";
+import { RestaurantsContext } from "../../../services/restaurants/restaurants.context";
 
 const RestaurantAreaView = styled(SafeAreaView)`
   ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px;`}
@@ -19,24 +20,14 @@ const RestaurantList = styled(FlatList).attrs({
 })``;
 
 export const RestaurantsScreen = ({ props }) => {
+  const { isLoading, restaurants, error } = useContext(RestaurantsContext);
   return (
     <>
       <RestaurantAreaView>
         <RestaurantSearch />
         <RestaurantList
-          data={[
-            { name: 1 },
-            { name: 2 },
-            { name: 3 },
-            { name: 4 },
-            { name: 5 },
-            { name: 6 },
-            { name: 7 },
-            { name: 8 },
-            { name: 9 },
-            { name: 10 },
-          ]}
-          renderItem={() => <RestaurantInfoCard />}
+          data={restaurants}
+          renderItem={({ item }) => <RestaurantInfoCard restaurant={item} />}
           keyExtractor={(item) => item.name}
         />
       </RestaurantAreaView>
